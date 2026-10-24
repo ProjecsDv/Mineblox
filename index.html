@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BO2Craft Launcher</title>
+<style>
+body{margin:0;background:#0a0a0a;color:#fff;font-family:Arial;overflow:hidden}
+.bg{position:fixed;inset:0;background:radial-gradient(circle at 30% 20%, #163016, #000)}
+.box{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:360px;background:#151515;border:1px solid #222;border-radius:16px;padding:22px;z-index:10}
+h1{margin:0;font-weight:900}h1 span{color:#5cff5c}
+input{width:100%;padding:12px;margin:8px 0;background:#0f0f0f;border:1px solid #2a2a2a;border-radius:8px;color:#fff;box-sizing:border-box}
+button{width:100%;padding:14px;background:#5cff5c;color:#000;border:0;border-radius:10px;font-weight:900;cursor:pointer;margin-top:10px}
+#gameContainer{display:none;position:fixed;inset:0;background:#000;z-index:999}
+#eaglerFrame{width:100%;height:100%;border:0}
+.small{font-size:10px;color:#666;margin-top:10px;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="box" id="launcher">
+  <h1>BO2<span>CRAFT</span></h1>
+  <p style="font-size:12px;color:#888">Launcher Próprio • Base Escondida • Anti-Crash</p>
+  <input id="nick" placeholder="Nick">
+  <input id="ip" value="wss://6b6t.org" placeholder="IP">
+  <button onclick="jogar()">▶ ENTRAR NO 6B6T</button>
+  <div class="small"><span>RENDER: 8 CHUNKS</span><span>BASE: EAGLER ESCONDIDA</span></div>
+</div>
+<div id="gameContainer"><iframe id="eaglerFrame" allow="fullscreen"></iframe></div>
+<script>
+document.getElementById('nick').value = "BO2_" + Math.floor(Math.random()*9999);
+function jogar(){
+  var nick = document.getElementById('nick').value;
+  var ip = document.getElementById('ip').value;
+  localStorage.setItem('eagler_nick', nick);
+  document.getElementById('launcher').style.display='none';
+  document.querySelector('.bg').style.display='none';
+  document.getElementById('gameContainer').style.display='block';
+  // CARREGA BASE ESCONDIDA - TROCA AQUI PELO SEU EAGLER
+  var frame = document.getElementById('eaglerFrame');
+  // Se sua pasta eagler estiver em /eaglercraft/ com o index.html dela:
+  frame.src = "./eaglercraft/index.html?server=" + encodeURIComponent(ip) + "&username=" + encodeURIComponent(nick);
+}
+</script>
+</body>
+</html>
